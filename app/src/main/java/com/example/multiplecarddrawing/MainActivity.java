@@ -25,6 +25,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     WebView webView;
+    public void reset(){
+        WebView webView = findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.d("WEBVIEW", "Finished loading "+url);
+            }
+        });
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                Log.d("WEBVIEW", message);
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                result.confirm();
+                return true;
+            }
+        });
+
+        webView.loadUrl("file:///android_asset/UI.html");
+        webView.loadUrl("javascript:clearNode()");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_clear) {
-            this.webView.loadUrl("javascript:clearNode()");
+
+            reset();
             return true;
         }
 
