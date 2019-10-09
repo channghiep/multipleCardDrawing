@@ -1,0 +1,39 @@
+<html>
+<head>
+    <style>
+        div {
+
+            font-size: 3em;
+        }
+        h1{
+        text-align: center;
+        }
+    </style>
+    <script defer>
+        var face = ['clubs', 'diamonds', 'hearts', 'spades'];
+        var value = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king'];
+
+        function addNode(num) {
+            num = num || 1;
+            for (var i=0; i<num; i++) {
+                let element = document.createElement('img');
+                element.src = value[Math.floor(Math.random()*value.length)]+"_of_"+face[Math.floor(Math.random()*face.length)]+".png";
+                element.style = "width: 10%; height: 10%";
+                document.getElementById('interface').append(element);
+            }
+            return num;
+        }
+        function clearNode(){
+            document.getElementById('interface').innerHTML = "";
+
+        }
+
+    </script>
+</head>
+<body>
+<h1> Draw a card</h1>
+<div id="interface">
+
+</div>
+</body>
+</html>
